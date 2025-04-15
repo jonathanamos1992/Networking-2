@@ -1,3 +1,24 @@
 Task 2
 Question 5
 -Why do I need to find the inside IP addresses? Shouldn't the float IP's be able to work?
+-What does it mean by binding the "source"
+
+Them the next hint uses the floating IP to establish the local port forward?
+
+#Remote Port Forward
+ssh net3_student1@10.3.0.10 -R 30101:localhost:22 -NT
+
+#Local Port Forward
+ ssh net3_student1@10.50.11.222 -L 30102:localhost:30101
+
+ ssh net3_student1@10.50.11.222 -L 30102:localhost:30101
+
+#Bind
+ssh net3_student1@localhost -p 30102 -L 30103:10.2.0.2:80
+
+#netstat & grep to verify
+netstat -an | grep 30101
+
+Then 
+
+When are ports no longer usable? Like when I create a connection and fire one off but mess something up in the connection, is it still usable?
