@@ -68,3 +68,5 @@ we need a tunnel to put wget on our local machine
 *Internet_Host* > ssh [A] -L *100*:[xxxx:xx]
 
 *Internet_Host* > ssh [A] -R *200*:[xxxx:xx]
+
+eog to view png files
