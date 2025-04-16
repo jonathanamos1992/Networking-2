@@ -28,3 +28,43 @@ hostname
 
 Use ip a or ifconfig
 ip a | grep inet
+
+Tunnel Activity 1 -Avatar
+
+
+Tried to ssh and did not work because of no username
+run scan on internal network to see port 80 is open
+used wget to get name of Sokka
+
+#interrogate ports
+#perform full enumeration
+#when you scan ports, access every port
+
+proxychains ./scan.sh
+proxychains wget -r http://172.16.40.10
+proxychains wget -r ftp://72.16.40.10
+
+Then ssh to the box
+
+Once on the box, enumrate to get info
+we did ifconf to get internal ip
+
+because we are on the box, we must used internal IP
+
+back to internet_host to create dynamic port
+
+ssh Sokka@10.50.176.142 -D 9050
+
+then run proxychains on internal ip
+
+>IH proxychains ./tcp_scans
+
+we need a tunnel to put wget on our local machine
+>IH ssh Sokka@10.50.176.142 -L 1111:l92.168.1.39:22 -NT
+
+
+#NOTES FOR TUNNEL
+
+*Internet_Host* > ssh [A] -L *100*:[xxxx:xx]
+
+*Internet_Host* > ssh [A] -R *200*:[xxxx:xx]
