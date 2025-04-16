@@ -22,3 +22,9 @@ netstat -an | grep 30101
 Then 
 
 When are ports no longer usable? Like when I create a connection and fire one off but mess something up in the connection, is it still usable?
+
+#check which machine you're on
+hostname
+
+Use ip a or ifconfig
+ip a | grep inet
