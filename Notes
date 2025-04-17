@@ -86,3 +86,12 @@ BIH$ Morty@localhost -p 3333 -L 4444 172.16.10.121:2323
 ssh Jerry@localhost -p 4444 -D 9050
 ssh Jerry@localhost -p 4444 -L 5555:192.168.10.69:22 -NT
 ssh Beth@localhost -p 5555 -D 9050 2>dev/null
+
+
+scenario:
+secret ftp server on Beth
+failed ftp, anon not authorized
+wget uses anon by default
+
+proxychains ftp localhost
+user:
