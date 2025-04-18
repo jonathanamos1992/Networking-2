@@ -95,3 +95,33 @@ wget uses anon by default
 
 proxychains ftp localhost
 user:
+
+
+#Futurama
+
+IH> ssh Bender@float_ip -p 1234 -D 9050 -NT
+
+IH> ssh Bender@float_ip -p 1234 -L 4000:172.17.17.28:23
+
+IH> telnet localhost 4000
+
+Phil> ssh Bender@172.17.17.17 -p 1234 -R 4001:localhost:4321
+
+IH> ssh Bender@localhost -p 1234 -L 4002:localhost:4001 -NT
+
+IH> ssh Philip@localhost -p 4002 -L 4003:192.168.30.150:1212
+
+IH> ssh leela@localhost -p 4003 -L 4004:10.10.12.121:2923
+
+IH> ssh -D 9050 Professor@localhost -p 4004
+
+
+
+
+*using the telnet session
+
+
+*did we use ss to see that 4321 was open and that it was ssh?
+when we scan and see a port is open, see what's on it, i.e. bannergrab
+
+IH> Leela@l
