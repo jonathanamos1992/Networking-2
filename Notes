@@ -124,4 +124,63 @@ IH> ssh -D 9050 Professor@localhost -p 4004
 *did we use ss to see that 4321 was open and that it was ssh?
 when we scan and see a port is open, see what's on it, i.e. bannergrab
 
-IH> Leela@l
+#NETFILTER
+
+
+
+
+
+
+#IPTABLES
+which iptables
+
+sudo iptables -L
+iptables -L
+
+will show default
+
+case-sensitive
+
+run sudo iptables -L
+to check rule
+
+*block icmp, neeed both
+sudo iptables -A OUTPUT -p icmp -j DROP
+
+block http
+sudo iptables -A INPUT -p tcp --d port 22 -j ACCEPT
+
+
+sudo iptables-save > testfile
+
+sudo iptables-restore < testfile
+
+
+
+nftables
+
+sudo nft add chain ip CTCC INPUT
+{type filter hook input priority 0 \; policy accept;\}
+
+sudo nft add chain ip CTCC OUTPUT
+{type filter hook *output* priority 0 \; policy accept;\}
+
+
+
+
+sudo nft add rule ip CTCC INPUT tcp sport { 21-23 80} accept
+sudo nft add rule ip CTCC OUTPUT tcp dport { 21-23 80} accept
+
+sudo nft add rule ip CTCC INPUT tcp sport { 21-23 80} accept
+sudo nft add rule ip CTCC OUTPUT tcp dsport { 21-23 80} accept
+
+see handles
+sudo nft list ruleset -ann
+
+#save rules
+
+sudo nft list ruleset > TESTNFT
+
+#load
+sudo nft -f ./TESTNFT
+
