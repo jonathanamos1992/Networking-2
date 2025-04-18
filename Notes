@@ -184,3 +184,47 @@ sudo nft list ruleset > TESTNFT
 #load
 sudo nft -f ./TESTNFT
 
+
+#New and established traffic to/from via SSH,TELNET and RDP
+sudo iptables -t filter -A INPUT -m multiport -m state --state NEW,ESTABLISHED -p tcp --ports 22,23,3389 -j ACCEPT
+sudo iptables -t filter -A OUTPUT -m multiport -m state --state NEW,ESTABLISHED -p tcp --ports 22,23,3389 -j ACCEPT
+**this should cover source and destination*
+
+#CHANGE DEFAULT POLICY IN FILTER TABLE FOR INPUT, OUTPUT AND FORWARD TO DROP
+
+sudo iptables -t filter -P INPUT DROP 
+sudo iptables -t filter -P OUTPUT DROP 
+sudo iptables -t filter -P FORWARD DROP 
+
+#Allow Pivot and T1 to send ping requests to each other
+
+T1:
+sudo iptables -A INPUT -s 10.10.0.40 -p icmp --icmp-type 8 -j ACCEPT
+sudo iptables -A INPUT -s 10.10.0.40 -p icmp --icmp-type 0 -j ACCEPT
+
+sudo iptables -A OUTPUT -d 10.10.0.40 -p icmp --icmp-type 8 -j ACCEPT
+sudo iptables -A OUTPUT -d 10.10.0.40 -p icmp --icmp-type 0 -j ACCEPT
+
+
+#SPECIFY 6579 UDP PORT AS A SERVER
+
+sudo iptables -A INPUT  -m multiport -p tcp --ports 4444,6579 -j ACCEPT
+sudo iptables -A OUTPUT -m multiport -p tcp --ports 4444,6579 -j ACCEPT
+
+sudo iptables -A INPUT -m multiport -p udp --ports 4444,6579 -j ACCEPT
+sudo iptables -A OUTPUT -m multiport -p udp --ports 4444,6579 -j ACCEPT
+
+
+
+#ALLOW NEW AND ESTABLISHED TRAFFIC TO/FROM VIA HTTP
+#SPECIFY 80 TCP PORT AS A SERVER
+sudo iptables -A INPUT -m state --state NEW,ESTABLISHED -p tcp -m multiport --ports 80 -j ACCEPT
+sudo iptables -A OUTPUT -m state --state NEW,ESTABLISHED -p tcp -m multiport --ports 80 -j ACCEPT
+
+
+
+
+#CHECK
+sudo iptables -L --line-numbers
+#NETCAT LISTENER ON 9001 (PIVOT)
+nc -lvp 9001
